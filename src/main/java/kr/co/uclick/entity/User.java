@@ -24,6 +24,8 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
+	// comment 
 
 	@Column(name = "name", nullable = true, length = 20) // 이름 컬럼 길이 20으로 제한
 	private String name;
