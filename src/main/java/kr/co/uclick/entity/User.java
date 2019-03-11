@@ -2,7 +2,8 @@ package kr.co.uclick.entity;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,27 +18,31 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.cache.annotation.Cacheable;
 
 @Entity
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+//@Cacheable
+//@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE) //엔티티의 컬렉션을 캐시
 public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	// comment 
 
 	@Column(name = "name", nullable = true, length = 20) // 이름 컬럼 길이 20으로 제한
 	private String name;
 
-	// OnetoMnay 다대일 관계를 정의
+	//이게 있으면 member를 지우면 폰도 지워짐 ALL(전파되는 부분) 디테일하게 조절가능
+	//회원 하나에 핸드폰을 여러개 가지니 1:N 관계
+	//이것을 JPA 어노테이션으로는 @OneToMany라고 표현
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL) // cascade : 현 Entity 변경에 대해 관계를 맺는 Entity도 변경 전략을 결정합니다.
-	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE) // L2 Cache 적용
-	private List<Phone> phone;
+//	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE) // L2 Cache 적용
+	private Collection<Phone> phones;
+
 
 	public User() {
-	};
+		
+	}
 
+	
 	public User(String name) {
 		setName(name);
 	}
@@ -59,21 +64,19 @@ public class User {
 		this.name = name;
 	}
 
-	public List<Phone> getPhone() {
-		return phone;
-	}
-
-	public void setPhone(List<Phone> phone) {
-		this.phone = phone;
-	}
-
-	// TODO : 폰 번호를 추가함과 동시에 p Entity에 유저를 Setting
-	public void addPhone(Phone p) {
-		if (phone == null) {
-			phone = new ArrayList<Phone>();
+	public Collection<Phone> getPhones() {
+		
+		if( phones == null ) {
+			phones = new ArrayList<Phone>();
 		}
-		phone.add(p);
-		p.setUser(this);
+		return phones;
 	}
-
+	public void setPhones(Collection<Phone> phones) {
+		this.phones = phones;
+	}
+	public void addPhone(Phone p) {
+		Collection<Phone> phones = getPhones();
+		p.setUser(this);
+		phones.add(p);
+	}
 }
