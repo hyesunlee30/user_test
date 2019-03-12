@@ -2,68 +2,64 @@ package kr.co.uclick.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.TableGenerator;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.cache.annotation.Cacheable;
+
 
 @Entity
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+//@Cacheable
+//@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Phone {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long seq;
+	@TableGenerator(name = "phone")
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "phone")//기본키를 자동생성(id값을 자동으로 계속 늘려주는 형태)
+	@Column
+	private Integer id;
 	
-	@Column(unique=true)
-	private String phoneNumber;
-
-	// User Entity를 참조하여  Phone 테이블에 ownerId 컬럼을 만듬
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ownerId")
+	@Column
+	private String no;
+	
+	//이게 있으면 member를 지우면 폰도 지워짐 ALL(전파되는 부분) 디테일하게 조절가능
+	//이것을 JPA 어노테이션으로는 @OneToMany라고 표현합니다.
+	@ManyToOne(optional=false)
+	@JoinColumn(name="user_id")
 	private User user;
-
+	
 	public Phone() {
+		
 	}
 
-	public Phone(User user, String phoneNumber) {
-		this.user = user;
-		this.phoneNumber = phoneNumber;
+	public Phone(String no) {
+		this.no = no;
 	}
-
-	public Phone(String phone) {
-		phoneNumber = phone;
+	public Integer getId() {
+		return id;
 	}
-
-	public Long getSeq() {
-		return seq;
+	public void setId(Integer id) {
+		this.id = id;
 	}
-
-	public void setSeq(Long seq) {
-		this.seq = seq;
+	public String getNo() {
+		return no;
 	}
-
-	public String getPhoneNumber() {
-		return phoneNumber;
+	public void setNo(String no) {
+		this.no = no;
 	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
 	public User getUser() {
 		return user;
 	}
-
 	public void setUser(User user) {
 		this.user = user;
+	}
+	@Override
+	public String toString() {
+		String result = "[phone_"+id+"]"+no;
+		return result;
 	}
 
 }
