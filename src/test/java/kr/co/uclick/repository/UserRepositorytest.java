@@ -1,4 +1,4 @@
-package kr.co.uclick.configuration;
+package kr.co.uclick.repository;
 
 import java.util.List;
 
@@ -9,14 +9,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.uclick.configuration.SpringConfiguration;
 import kr.co.uclick.entity.Phone;
 import kr.co.uclick.entity.User;
-import kr.co.uclick.repository.UserRepository;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = SpringConfiguration.class)
-public class UserTest {
-
+public class UserRepositorytest {
 	   @Autowired
 	   private UserRepository userRepository;
 	   
@@ -46,4 +45,4 @@ public class UserTest {
 	      
 
 	   }
-	}
+}
