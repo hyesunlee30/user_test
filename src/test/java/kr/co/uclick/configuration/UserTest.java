@@ -21,7 +21,7 @@ public class UserTest {
 	   private UserRepository userRepository;
 	   
 	   @Test
-	   @Transactional
+//	   @Transactional
 	   public void oneToMany_TwoWay() {
 	      User first = new User("Jang");      
 	      first.addPhone(new Phone("010-1234-1111"));
