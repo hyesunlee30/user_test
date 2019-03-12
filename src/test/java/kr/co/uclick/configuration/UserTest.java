@@ -20,29 +20,30 @@ public class UserTest {
 	   @Autowired
 	   private UserRepository userRepository;
 	   
+	   
 	   @Test
-//	   @Transactional
+	   @Transactional
 	   public void oneToMany_TwoWay() {
-	      User first = new User("Jang");      
+	      User first = new User("Jang");        
 	      first.addPhone(new Phone("010-1234-1111"));
 	      first.addPhone(new Phone("010-1234-2222"));
 	      
-	      User second = new User("Ha");      
+	      User second = new User("Ha");       
 	      second.addPhone(new Phone("010-1234-3333"));
 	      
-	      User third = new User("Lee");         
+	      User third = new User("Lee");       
 	      third.addPhone(new Phone("010-1234-4444"));
 	      
-	      userRepository.save(first);            
-	      userRepository.save(second);        
-	      userRepository.save(third);           
+	      userRepository.save(first);           
+	      userRepository.save(second);         
+	      userRepository.save(third);         
 	      
 	      List<User> list = userRepository.findAll();
 	      
-	      for( User u : list ) {            
-	         System.out.println(u.toString());   
-	      }                         
+	      for( User m : list ) {            
+	         System.out.println(m.toString());   
+	      }                           
 	      
+
 	   }
-	
-}
+	}
