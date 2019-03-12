@@ -17,7 +17,6 @@ import kr.co.uclick.repository.UserRepository;
 @ContextConfiguration(classes = SpringConfiguration.class)
 public class UserTest {
 
-	
 	   @Autowired
 	   private UserRepository userRepository;
 	   

@@ -4,7 +4,6 @@ package kr.co.uclick.entity;
 import java.util.ArrayList;
 import java.util.Collection;
 
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +17,8 @@ import javax.persistence.TableGenerator;
 
 
 @Entity
+//@Cacheable
+//@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE) //엔티티의 컬렉션을 캐시
 public class User {
 
 	//Id primary key 를 가지는 변수에 선언합니다.
