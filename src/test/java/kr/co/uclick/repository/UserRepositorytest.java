@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
+
 
 import kr.co.uclick.configuration.SpringConfiguration;
 import kr.co.uclick.entity.Phone;
@@ -21,7 +21,7 @@ public class UserRepositorytest {
 	   
 	   
 	   @Test
-	   @Transactional
+//	   @Transactional
 	   public void oneToMany_TwoWay() {
 	      User first = new User("Jang");        
 	      first.addPhone(new Phone("010-1234-1111"));

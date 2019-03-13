@@ -34,7 +34,7 @@ public class User {
 	//이게 있으면 member를 지우면 폰도 지워짐 ALL(전파되는 부분) 디테일하게 조절가능
 	//회원 하나에 핸드폰을 여러개 가지니 1:N 관계
 	//이것을 JPA 어노테이션으로는 @OneToMany라고 표현합니다.
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="user")
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="user")
 	private Collection<Phone> phones;
 	
 	public User() {

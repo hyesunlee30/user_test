@@ -38,6 +38,11 @@ public class Phone {
 	public Phone(String no) {
 		this.no = no;
 	}
+	public Phone(User user1, String string) {
+		this.user = user1;
+		this.no = string;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -51,6 +56,7 @@ public class Phone {
 		this.no = no;
 	}
 	public User getUser() {
+
 		return user;
 	}
 	public void setUser(User user) {
