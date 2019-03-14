@@ -45,15 +45,26 @@ public class UserServicetest {
 //
 //	   }
 //	   
-//	   @Test
-//	   public void userFind() {
-//		   
-//		      List<User> list = userService.findByName("Lee");
-//		      
-//		      for( User m : list ) {            
-//		         System.out.println(m.toString());
-//		      }       
-//	   }
+	   @Test
+	   public void userFind() {
+	   
+
+//	      User first = new User("Jung");        
+//	      first.addPhone(new Phone("010-1222-1111"));
+//	      first.addPhone(new Phone("010-1222-2222"));
+//	      
+//	      User second = new User("Jung");       
+//	      second.addPhone(new Phone("010-1234-1112"));
+//	      
+//	      userService.save(first);           
+//	      userService.save(second);	      
+		   
+		      List<User> list = userService.findByName("Jung");
+		      
+		      for( User u : list ) {            
+		         System.out.println("UserId: " + u.getId() + " UserName : "+u.getName());
+		      }       
+	   }
 	   
 //	   @Test
 //	   public void userUpdate() {

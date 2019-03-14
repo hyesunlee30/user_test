@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import kr.co.uclick.configuration.SpringConfiguration;
 import kr.co.uclick.entity.Phone;
-import kr.co.uclick.entity.User;
+
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = SpringConfiguration.class)
@@ -58,11 +58,12 @@ public class PhoneServicetest {
 //		   
 //	   }
 	   
+	   
 //	   @Test
-//	   public void phoneUpdate() {
+//	   public void phoneDelete() {
 //		   
-//		   phoneService.updatePhone("010-1212-1212", 1);
-//		
+//		   phoneService.deletePhone(1);
+//
 //			List<Phone> phone = phoneService.findAll();
 //
 //			for (Phone p : phone) {
@@ -70,21 +71,21 @@ public class PhoneServicetest {
 //						"[PHONE ID]: " + p.getUser().getId() + " [PHONE NUMBER]: " + p.getNo());
 //			}
 //		   
-//	   }
+//	   }   
 	   
 	   @Test
-	   public void phoneDelete() {
+	   public void phoneFind() {
 		   
-		   phoneService.deletePhone(1);
-
-			List<Phone> phone = phoneService.findAll();
-
+		
+		   List<Phone> phone = phoneService.findByNoLike("010-1234-2222");
+		   
 			for (Phone p : phone) {
+				
 				System.out.println(
-						"[PHONE ID]: " + p.getUser().getId() + " [PHONE NUMBER]: " + p.getNo());
+						"[PHON ID]: " + p.getUser().getId() + " [PHONE NUMBER]: " + p.getNo());
 			}
 		   
-	   }   
+	   }
 
 	   
 	   

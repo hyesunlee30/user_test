@@ -23,4 +23,5 @@ interface PhoneService {
 	void deletePhone(int p);
 	
 
+	List<Phone> findByNoLike(String phoneNumber);
 }

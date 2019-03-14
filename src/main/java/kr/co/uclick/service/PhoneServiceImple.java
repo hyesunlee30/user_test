@@ -44,5 +44,11 @@ public class PhoneServiceImple implements PhoneService {
 		
 	}
 
+	@Override
+	public List<Phone> findByNoLike(String phoneNumber) {
+		
+		return phoneRepository.findByNoLike(phoneNumber);
+	}
+
 
 }
