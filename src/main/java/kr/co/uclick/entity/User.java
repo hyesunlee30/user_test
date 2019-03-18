@@ -27,7 +27,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = "user")//기본키를 자동생성(id값을 자동으로 계속 늘려주는 형태)
 	@Column
 	private Integer Id;
-	@Column(name = "name", length = 20)
+	@Column
 	private String name;
 	
 	
@@ -41,12 +41,6 @@ public class User {
 
 	}
 	public User(String name) {
-		
-		
-		
-		
-		
-		
 		this.name = name;
 	}
 	public Integer getId() {

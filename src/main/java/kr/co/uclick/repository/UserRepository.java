@@ -12,6 +12,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	
 	List<User> findByNameLike(@Param("searchString") String searchString);
 
-	List<User> findById(int id);
+	Optional<User> findById(int id);
 
 } 

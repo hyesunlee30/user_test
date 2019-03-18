@@ -8,7 +8,7 @@ import kr.co.uclick.entity.User;
 
 
 @Service
-public interface UserService {
+interface UserService {
 
 	
 	List<User> findAll();
@@ -21,6 +21,6 @@ public interface UserService {
 	
 	void deleteUser(int userId);
 
-	public List<User> findById(int sampleId);
+//	boolean checkNameByte(String name);
 	
 }

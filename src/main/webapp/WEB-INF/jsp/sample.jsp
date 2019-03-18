@@ -6,6 +6,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 </head>
-<body>Samples : ${users} <br />
+<body>Samples : ${samples } <br />
+Sample.name : ${sample.name } <br />
+findSampleByName : ${findSampleByName} <br />
+
 </body>
 </html>

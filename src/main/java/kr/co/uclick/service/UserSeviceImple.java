@@ -36,7 +36,7 @@ public class UserSeviceImple implements UserService {
 	@Override
 	public void updateUser(String name, int id) {
 		
-		User u = userrepository.findById(id).get(id);
+		User u = userrepository.findById(id).get();
 		
 		u.setName(name);
 			
@@ -49,11 +49,6 @@ public class UserSeviceImple implements UserService {
 		
 		userrepository.deleteById(userId);
 
-	}
-
-	public List<User> findById(int userId) {
-		
-		return userrepository.findById(userId);
 	}
 
 
