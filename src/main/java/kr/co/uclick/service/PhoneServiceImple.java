@@ -1,17 +1,22 @@
 package kr.co.uclick.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.uclick.entity.Phone;
+import kr.co.uclick.entity.User;
 import kr.co.uclick.repository.PhoneRepository;
+import kr.co.uclick.repository.UserRepository;
 
 @Service
 public class PhoneServiceImple implements PhoneService {
 
 	@Autowired PhoneRepository phoneRepository;
+	
+	@Autowired UserRepository userRepository;
 	
 	@Override
 	public void save(Phone phone) {
@@ -50,5 +55,17 @@ public class PhoneServiceImple implements PhoneService {
 		return phoneRepository.findByNoLike(phoneNumber);
 	}
 
+	@Override
+	public List<Phone> findAllByUserId(int userId) {
+	
+		List<Phone> res = new ArrayList<Phone>();
+	      User u = userRepository.findById(userId).get();
+	      List<Phone> list = phoneRepository.findAllByUser(u);
+	      for(Phone item: list) {
+	         res.add(item);
+	      }
+	      return res;
+		
+	}
 
 }

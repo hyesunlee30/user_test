@@ -12,7 +12,7 @@ import kr.co.uclick.entity.Phone;
 
 @Service
 @Transactional
-interface PhoneService {
+public interface PhoneService {
 
 	void save(Phone phone);
 	
@@ -24,4 +24,11 @@ interface PhoneService {
 	
 
 	List<Phone> findByNoLike(String phoneNumber);
+
+	public List<Phone> findAllByUserId(int userId);
+
+
+	
+
+
 }

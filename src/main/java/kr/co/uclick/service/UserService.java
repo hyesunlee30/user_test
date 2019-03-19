@@ -2,18 +2,18 @@ package kr.co.uclick.service;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import kr.co.uclick.entity.User;
 
 
 @Service
-interface UserService {
+public interface UserService {
 
 	
 	List<User> findAll();
 	
-	void save(User user);
 
 	List<User> findByName(String name);
 
@@ -21,6 +21,14 @@ interface UserService {
 	
 	void deleteUser(int userId);
 
-//	boolean checkNameByte(String name);
+	public User findById(int id);
+
+	void save(String name, String phoneNumber);
+
+
+
+
+
+
 	
 }
