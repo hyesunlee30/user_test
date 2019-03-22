@@ -2,6 +2,7 @@ package kr.co.uclick.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,9 +33,9 @@ public class PhoneServiceImple implements PhoneService {
 	}
 
 	@Override
-	public void updatePhone(String phoneNumber, int phoneId) {
+	public void updatePhone(String phoneNumber, int Pi) {
 		
-		Phone p = phoneRepository.findById(phoneId).get();
+		Phone p = phoneRepository.findById(Pi).get();
 		
 		p.setNo(phoneNumber);
 		
@@ -66,6 +67,14 @@ public class PhoneServiceImple implements PhoneService {
 	      }
 	      return res;
 		
+	}
+
+	@Override
+	public Phone findById(int phoneId) {
+		
+		Phone p = phoneRepository.findById(phoneId).get();
+		
+		return p;
 	}
 
 }

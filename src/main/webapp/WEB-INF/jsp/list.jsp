@@ -22,6 +22,8 @@
 <center><font size=5><b>User List</b></font><center>
 <br>
 <br>
+
+
    <table class=table align=center table style = "font-size : 14px;width:400px;">
        <colgroup>
         <col width="30%"/>
@@ -37,12 +39,12 @@
     </thead>
     <tbody>
         <c:choose>
-        		<c:when test="${fn:length(users) > 0}">
-                <c:forEach items="${users}" var="users" varStatus="i">
+        		<c:when test="${fn:length(list) > 0}">
+                <c:forEach items="${list}" var="list" varStatus="i">
                 	<tr>
                 		<td>${i.count}</td>
-                        <td>${users.id}</td>                        
-                        <td><a href='/editForm?id=${users.id}'>${users.name}</a></td>                        
+                        <td>${list.id}</td>                        
+                        <td><a href='/editForm?id=${list.id}'>${list.name}</a></td>                        
       				</tr>
                 </c:forEach>
                 </c:when>
@@ -63,6 +65,16 @@
 		<td><button class="btn btn-primary" style="float : right;" onclick="location.href='/newForm.html'">추가</button></td>
 		</tr>
 	</table>
+	
+			<form action="list" method="post">
+               <select name="opt">
+                       <option value="name">이름</option>
+                       <option value="phone">번호</option>                       
+                </select>
+               <input type="search" name="title">
+               <button type="submit">검색</button>
+         </form>
+	
 </body>
 </html>
 

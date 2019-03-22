@@ -32,8 +32,60 @@ public class UserController {
    private PhoneService phoneService;
    
    @RequestMapping(value = "list")
-   public String list(Model model) {
-      model.addAttribute("users", userService.findAll());
+   public String list(Model model,  @RequestParam HashMap<String, String> map) {
+	
+//	    String pageS = map.get("page");
+//	     if(pageS == null || pageS.equals("")) {
+//	        pageS = "0";
+//	     }
+	     
+	     // 검색관련기능
+	     String opt = map.get("opt");
+	     String title = map.get("title");
+	     boolean search = false; // false 검색, true 미검색
+//	     int page = Integer.parseInt(pageS);
+//	     
+//	     int start = userService.findBypage(page, search, title).getStart(); 
+//	     int end = userService.findBypage(page, search, title).getEnd();
+//	     int total = userService.findBypage(page, search, title).getTotalpage();
+//	     if (end > total) {
+//	        end = total;
+//	     }
+	     
+	     List<User> list = null;
+	     List<Phone> phone = null;
+	     //미검색일 때
+	     if(title==null || title.equals("")) {
+	        search = true;
+	        list = userService.findAll(); //리스트 변수에 결과값을 담는다.
+	     } 
+	     //검색일 때
+	     else {
+	        search = false;
+	        if(opt.equals("name")) {
+	           list = userService.findByName(title); //리스트 변수에 결과값을 담는다.
+	        } else if(opt.equals("phone")) {	        
+	        	
+	           User u = userService.findPhone(title);
+	           list = new ArrayList<User>(); //객체화
+	           list.add(u);
+	           System.out.println(list.size());
+	           
+//	           list = userService.findAllById(userid);
+	           
+	        }
+	     }
+	     
+	     model.addAttribute("list",list); //모델에 name, value 를 담는다.
+	     model.addAttribute("phone",phone); //모델에 name, value 를 담는다.
+//	     model.addAttribute("start",start);
+//	     model.addAttribute("end",end);
+	     // 검색관련
+	     model.addAttribute("search",search);
+	     model.addAttribute("opt",opt);
+	     model.addAttribute("title",title);
+	   
+ 
       return "list";
    }
 
@@ -48,7 +100,7 @@ public class UserController {
 	   	  
 	  User user = userService.findById(id);
 	  
-	 List<Phone> phones = phoneService.findAllByUserId(id);
+	  List<Phone> phones = phoneService.findAllByUserId(id);
 	 
 	  
 	  model.addAttribute("user", user);
@@ -57,14 +109,13 @@ public class UserController {
       return "editForm";
    }
    
-
    
    @RequestMapping(value = "updateForm")
-   public String editFormupdateForm(int id, Model model) {
+   public String updateForm(int id, Model model) {
 	   	  
 	  User user = userService.findById(id);
 	  
-	 List<Phone> phones = phoneService.findAllByUserId(id);
+	  List<Phone> phones = phoneService.findAllByUserId(id);
 	 
 	  
 	  model.addAttribute("user", user);
@@ -73,19 +124,59 @@ public class UserController {
       return "updateForm";
    }
    
+   @RequestMapping(value = "phoneAddForm")
+   public String phoneAddForm(int id, Model model) {
+	   	  
+	  User user = userService.findById(id);
+	  
+	  List<Phone> phones = phoneService.findAllByUserId(id);
+	 
+	  
+	  model.addAttribute("user", user);
+	  model.addAttribute("phones", phones);
+	  
+      return "phoneAddForm";
+   }
+   
+   @RequestMapping(value = "phoneUpdateForm")
+   public String phoneUpdateForm(int phoneid, Model model,  @RequestParam HashMap<String, String> map) {
+
+	   Phone p = phoneService.findById(phoneid);
+	   model.addAttribute("phones", p);
+	  
+      return "phoneUpdateForm";
+   }
+   
    
 
-
    @RequestMapping(value = "save")
-   public String save(@RequestParam HashMap<String, String> map) {
-
+   public String save(int id, @RequestParam HashMap<String, String> map) {
 
 		String name1 = map.get("name");
 
 		String PhoneNumber1 = map.get("PhoneNumber");
 		
+		int ids = 0;
+		
+		ids = id;
+		
 
-		userService.save(name1,PhoneNumber1); 
+
+
+		if(ids != 0) {
+			User user1 = userService.findById(ids);
+	
+			Phone p = new Phone(user1, PhoneNumber1);
+	
+	
+			phoneService.save(p);
+
+		}
+		else {
+
+			userService.save(name1,PhoneNumber1); 
+			
+		}
 
 
 
@@ -93,15 +184,39 @@ public class UserController {
    }
    
    @RequestMapping(value = "update")
-   public String update(User user, Model model, @RequestParam HashMap<String, String> map) {
+   public String update(@RequestParam HashMap<String, String> map) {
 
-	    String ids = map.get("id");
-		System.out.println(ids);
+	   
+//	    String ids = map.get("id");
+//	       
+//		
+//		int id = 0;
+//		id = Integer.parseInt(ids);
+//		
+//	
+//
+//		
+//		if(id != 0) {
+//
+//			String name1 =map.get("name");
+//
+//			userService.updateUser(name1, id);
+//			
+//		}
+//		else {
+	
+			String phoneid = map.get("phoneid");
+			
+			
+			String phoneNumber = map.get("phoneNumber");
+			
+			int Pi = 0;
+			Pi = Integer.parseInt(phoneid);
 
-		String name1 = map.get("name");
-
-		int id = Integer.parseInt(ids);
-		userService.updateUser(name1, id);
+			phoneService.updatePhone(phoneNumber, Pi);
+			
+//		}
+		
 			
       return "redirect:list.html";
    }
@@ -110,9 +225,24 @@ public class UserController {
    
 
    @RequestMapping(value = "delete")
-   public String delete(int id, Model model) {
+   public String delete(int phoneid, Model model, @RequestParam HashMap<String, String> map) {
 	   
-	   userService.deleteUser(id);
+	  
+	   
+	   String ids = map.get("id");
+		
+
+		if (ids != null) {
+			int id = Integer.parseInt(ids);
+			
+			 userService.deleteUser(id);
+			
+		} else {
+			
+			 phoneService.deletePhone(phoneid);
+
+	   }
+	   
 	   
 	   
       return "redirect:list.html";

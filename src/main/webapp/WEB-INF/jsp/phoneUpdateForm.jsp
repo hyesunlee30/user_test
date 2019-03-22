@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Detail</title>
+<title>PhoneNumber</title>
   <meta name="viewport" content="width=400px, initial-scale=1, shrink-to-fit=no">
     <title>User</title>
     <!-- meta tags 필요 -->
@@ -17,29 +17,18 @@
 
   </head>
 <body>
-<center><font size=5><b><br>User<br></b></font></center>
+<center><font size=5><b><br>PhoneNumber<br></b></font></center>
 
     <div class="container col-md-6">
-    <form  method="post" id="updateForm" name="updateForm">
-    
-        <div class="form-group">
-            <label for="exampleFormControlInput1">Id</label>
-            <input type="text" class="form-control" id="id" name="id" value="${user.id}" readonly>
-        </div>        
-        <div class="form-group">
-            <label for="exampleFormControlInput1">Name</label>
-            <input type="text" class="form-control" id="name" name="name" value="${user.name}">
-        </div>
+    <form method="post" id="updateForm" name="updateForm">
+
         <div class="form-group">
             <label for="exampleFormControlInput1">PhoneNumber</label>
-            <c:forEach items="${phones}" var="phone">
-                	<input type="text" class="form-control" id="phonenumber" name="phonenumber" value="${phone.no}" readonly>
-             </c:forEach>
+                	<input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="${phones.no}" >
         </div>        
         <center>
-        <input type="hidden" name="id" value="${user.id}">
-        <button onClick='fn_updateUser()' class="btn btn-info" >사용자 수정</button>
-		<a href=<c:url value='/delete/${user.id}'/> class="btn btn-info" role="button">사용자 삭제</a></td>
+        <input type="hidden" name="phoneid" value="${phones.id}">
+        <button onClick='fn_updateUser()' class="btn btn-info" >번호 수정</button>
 		<a href=<c:url value='/list'/> class="btn btn-secondary" role="button">목록</a></td></td>
         </center>
     </form>
@@ -50,14 +39,7 @@ function fn_updateUser(){
     
     var form = document.getElementById("updateForm");
 
-
-    if(form.name.value == ""){
-        alert("이름을 입력해주세요.");
-        form.name.focus();
-        return;
-    }
-
-  form.action = "<c:url value='/update'/>";
+  form.action = "<c:url value='/update.html'/>";
   form.submit();
 
 }

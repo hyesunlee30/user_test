@@ -6,16 +6,18 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import kr.co.uclick.entity.User;
+import kr.co.uclick.entity.UserDto;
 
 
 @Service
 public interface UserService {
 
 	
-	List<User> findAll();
+	public List<User> findAll(); //게시판 목록 
 	
+	public UserDto findBypage(int page , boolean search, String title); //페이징 
 
-	List<User> findByName(String name);
+	public List<User> findByName(String name); // 이름검색
 
 	void updateUser(String name, int id);
 	
@@ -26,8 +28,8 @@ public interface UserService {
 	void save(String name, String phoneNumber);
 
 
-
-
+	User findPhone(String phone);
+	
 
 
 	

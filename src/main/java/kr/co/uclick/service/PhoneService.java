@@ -1,7 +1,7 @@
 package kr.co.uclick.service;
 
 import java.util.List;
-
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +18,7 @@ public interface PhoneService {
 	
 	List<Phone> findAll();
 	
-	void updatePhone(String phoneNumber, int phoneId);
+	void updatePhone(String phoneNumber, int Pi);
 	
 	void deletePhone(int p);
 	
@@ -27,7 +27,7 @@ public interface PhoneService {
 
 	public List<Phone> findAllByUserId(int userId);
 
-
+	public  Phone findById(int phoneId);
 	
 
 

@@ -12,7 +12,6 @@ import kr.co.uclick.entity.User;
 
 public interface PhoneRepository extends JpaRepository<Phone, Integer> {
 
-	Optional<Phone> findById(Integer phoneId);
 
 	void deleteByno(String phoneNumber);
 
@@ -20,4 +19,6 @@ public interface PhoneRepository extends JpaRepository<Phone, Integer> {
 
 	public List<Phone> findAllByUser(User user);
 
+	
+	Phone findByNo(@Param("phoneNumber")String phoneNumber);
 }

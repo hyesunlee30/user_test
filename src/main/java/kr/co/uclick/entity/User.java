@@ -7,12 +7,14 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.TableGenerator;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 
 
@@ -27,14 +29,19 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = "user")//기본키를 자동생성(id값을 자동으로 계속 늘려주는 형태)
 	@Column
 	private Integer Id;
-	@Column
+
+	
+	@Column(name = "name", nullable = true, length = 20) // 이름 컬럼 길이 20으로 제한
 	private String name;
-	
-	
+
+
 	//이게 있으면 member를 지우면 폰도 지워짐 ALL(전파되는 부분) 디테일하게 조절가능
 	//회원 하나에 핸드폰을 여러개 가지니 1:N 관계
 	//이것을 JPA 어노테이션으로는 @OneToMany라고 표현합니다.
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="user")
+	// OnetoMnay 다대일 관계를 정의
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL) // cascade : 현 Entity 변경에 대해 관계를 맺는 Entity도 변경 전략을 결정합니다.
+//	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE) // L2 Cache 적용
+	
 	private Collection<Phone> phones;
 	
 	public User() {
